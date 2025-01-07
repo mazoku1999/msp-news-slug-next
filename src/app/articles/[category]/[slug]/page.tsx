@@ -1,28 +1,37 @@
-import { notFound } from "next/navigation"
-import { getArticle } from "@/lib/data"
-import { User, ArrowLeft } from "lucide-react"
-import Link from "next/link"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import ReactMarkdown from "react-markdown"
-import remarkGfm from "remark-gfm"
-import rehypeRaw from "rehype-raw"
-import rehypeSanitize from "rehype-sanitize"
-import { ArticleActions } from "@/components/ArticleActions"
+import { Metadata } from 'next';
+import { notFound } from "next/navigation";
+import { ContentService } from '@/services/content-service';
+import { User, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import rehypeSanitize from "rehype-sanitize";
+import { ArticleActions } from "@/components/ArticleActions";
+import { News } from '@/types';
 
-interface PageProps {
+interface Props {
     params: Promise<{
-        id: string
-    }>
+        category: string;
+        slug: string;
+    }>;
 }
 
+async function getArticle(category: string, slug: string): Promise<News | null> {
+    return ContentService.getArticleBySlug(category, slug);
+}
 
-export default async function ArticlePage({ params }: PageProps) {
-    const resolvedParams = await params
-    const article = await getArticle(resolvedParams.id)
+export default async function ArticlePage({ params }: Props) {
+    const resolvedParams = await params;
+    const article = await getArticle(
+        resolvedParams.category.toLowerCase(),
+        resolvedParams.slug
+    );
 
     if (!article) {
-        notFound()
+        notFound();
     }
 
     return (
@@ -196,5 +205,5 @@ export default async function ArticlePage({ params }: PageProps) {
                 </article>
             </main>
         </div>
-    )
-}
+    );
+} 

@@ -6,8 +6,8 @@ import Link from "next/link"
 import type { Video } from "@/types"
 
 interface VideoCardProps {
-    video: Video
-    index: number
+    video: Video;
+    index: number;
 }
 
 export function VideoCard({ video, index }: VideoCardProps) {
@@ -18,7 +18,7 @@ export function VideoCard({ video, index }: VideoCardProps) {
             transition={{ delay: index * 0.1 }}
             className="group relative overflow-hidden rounded-[2rem] cursor-pointer bg-gradient-to-br from-violet-500/5 via-fuchsia-500/5 to-pink-500/5"
         >
-            <Link href={`/videos/${video.id}`}>
+            <Link href={`/videos/${video.category.toLowerCase()}/${video.slug}`}>
                 <div className="relative aspect-[16/10]">
                     <img
                         src={video.thumbnail}

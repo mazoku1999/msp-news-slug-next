@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { ArticleCard } from "./ArticleCard"
+import ArticleCard from "./ArticleCard"
 import type { News } from "@/types"
 
 interface ArticlesGridProps {

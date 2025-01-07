@@ -62,7 +62,7 @@ export const NewsSection = () => {
                             className={`break-inside-avoid mb-4 group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 ${getSize(index)}`}
                         >
                             <Link
-                                href={`/articles/${article.id}`}
+                                href={`/articles/${article.category.toLowerCase()}/${article.slug}`}
                                 className="block h-full"
                             >
                                 <div className="absolute inset-0">

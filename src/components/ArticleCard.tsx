@@ -4,38 +4,37 @@ import { ArrowRight, User, Calendar } from "lucide-react"
 import Link from "next/link"
 import { Badge } from "@/components/ui/badge"
 import type { News } from "@/types"
+import { useState, useEffect } from 'react';
 
 interface ArticleCardProps {
-    article: News
-    index: number
+    article: News;
+    index: number;
 }
 
-const getRandomSize = (index: number) => {
-    const sizes = [
-        'aspect-[2/3]',    // Alto
-        'aspect-square',   // Cuadrado
-        'aspect-[3/4]',    // Rectangular vertical
-        'aspect-[4/5]',    // Casi cuadrado
-        'aspect-[5/6]',    // Ligeramente vertical
-        'aspect-[3/2]'     // Paisaje
-    ]
+export default function ArticleCard({ article, index }: ArticleCardProps) {
+    const [size, setSize] = useState('aspect-square'); // tamaño por defecto
 
-    if (index > 0) {
-        const prevSize = sizes[index % sizes.length]
-        const availableSizes = sizes.filter(size => size !== prevSize)
-        return availableSizes[Math.floor(Math.random() * availableSizes.length)]
-    }
+    useEffect(() => {
+        const sizes = [
+            'aspect-[2/3]',
+            'aspect-square',
+            'aspect-[3/4]',
+            'aspect-[4/5]',
+            'aspect-[5/6]',
+            'aspect-[3/2]'
+        ];
+        const prevSize = sizes[index % sizes.length];
+        const availableSizes = sizes.filter(size => size !== prevSize);
+        const randomSize = availableSizes[Math.floor(Math.random() * availableSizes.length)];
+        setSize(index > 0 ? randomSize : prevSize);
+    }, [index]);
 
-    return sizes[index % sizes.length]
-}
-
-export function ArticleCard({ article, index }: ArticleCardProps) {
     return (
         <article
-            className={`break-inside-avoid mb-4 group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 ${getRandomSize(index)}`}
+            className={`break-inside-avoid mb-4 group relative bg-white dark:bg-zinc-900 rounded-2xl overflow-hidden hover:shadow-xl transition-all duration-300 ${size}`}
         >
             <Link
-                href={`/articles/${article.id}`}
+                href={`/articles/${article.category.toLowerCase()}/${article.slug}`}
                 className="block h-full"
             >
                 <div className="absolute inset-0">

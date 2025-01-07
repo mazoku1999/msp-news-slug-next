@@ -1,6 +1,5 @@
 import { ArticlesGrid } from "@/components/ArticlesGrid"
 import { news } from "@/data/news"
-import type { News } from "@/types"
 
 export default function ArticlesPage() {
     return (

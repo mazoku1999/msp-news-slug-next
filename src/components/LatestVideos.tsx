@@ -72,7 +72,10 @@ export const LatestVideos = () => {
                     whileTap={{ scale: 0.98 }}
                     className="group relative overflow-hidden rounded-[2rem] cursor-pointer bg-gradient-to-br from-violet-500/5 via-fuchsia-500/5 to-pink-500/5"
                   >
-                    <Link href={`/videos/${video.id}`}>
+                    <Link
+                      href={`/videos/${video.category.toLowerCase()}/${video.slug}`}
+                      className="block"
+                    >
                       <div className="relative aspect-[16/10]">
                         <img
                           src={video.thumbnail}

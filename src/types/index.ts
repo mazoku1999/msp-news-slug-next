@@ -22,6 +22,10 @@ export interface Video {
     thumbnail: string;
     author: string;
     created_at: string;
+    slug: string;
+    category: string;
+    views?: number;
+    duration?: string;
 }
 
 export interface News {
@@ -33,9 +37,13 @@ export interface News {
     author: string;
     created_at: string;
     category: string;
+    slug: string;
+    readTime?: string;
+    tags?: string[];
     video?: {
         id: string;
         title: string;
         description?: string;
+        slug: string;
     };
 } 

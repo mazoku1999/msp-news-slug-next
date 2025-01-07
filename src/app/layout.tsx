@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
     title: 'Video Immersive Hub',
-    description: 'Una plataforma inmersiva para explorar videos y artículos',
+    description: 'An immersive platform to explore videos and articles',
 }
 
 export default function RootLayout({
