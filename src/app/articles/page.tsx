@@ -1,7 +1,20 @@
+import { Metadata } from 'next'
 import { ArticlesGrid } from "@/components/ArticlesGrid"
-import { news } from "@/data/news"
+import { api } from '@/services/api'
 
-export default function ArticlesPage() {
+export const metadata: Metadata = {
+    title: 'Latest Articles | MSP News',
+    description: 'Stay informed with our curated selection of impactful stories from around the world',
+    openGraph: {
+        title: 'Latest Articles | MSP News',
+        description: 'Stay informed with our curated selection of impactful stories from around the world',
+        type: 'website',
+    }
+}
+
+export default async function ArticlesPage() {
+    const news = await api.getNews()
+
     return (
         <div className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-8">

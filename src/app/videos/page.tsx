@@ -1,7 +1,20 @@
+import { Metadata } from 'next'
 import { VideosGrid } from "@/components/VideosGrid"
-import { videos } from "@/data/videos"
+import { api } from '@/services/api'
 
-export default function VideosPage() {
+export const metadata: Metadata = {
+    title: 'Featured Videos | MSP News',
+    description: 'Explore our complete collection of immersive video content',
+    openGraph: {
+        title: 'Featured Videos | MSP News',
+        description: 'Explore our complete collection of immersive video content',
+        type: 'website',
+    }
+}
+
+export default async function VideosPage() {
+    const videos = await api.getVideos();
+
     return (
         <div className="min-h-screen bg-background">
             <div className="container mx-auto px-4 py-8">

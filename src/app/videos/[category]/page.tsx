@@ -1,16 +1,11 @@
 import { Metadata } from 'next';
-import { ContentService } from '@/services/content-service';
-import { Video } from '@/types';
+import { api } from '@/services/api';
 import { VideoCard } from '@/components/VideoCard';
 
 interface Props {
     params: Promise<{
         category: string;
     }>;
-}
-
-async function getCategoryVideos(category: string): Promise<Video[]> {
-    return ContentService.getVideosByCategory(category);
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -23,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function CategoryPage({ params }: Props) {
     const resolvedParams = await params;
-    const videos = await getCategoryVideos(resolvedParams.category);
+    const videos = await api.getVideos(resolvedParams.category);
 
     return (
         <div className="max-w-6xl mx-auto py-8 px-4">

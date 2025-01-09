@@ -36,18 +36,20 @@ export const LatestVideos = () => {
               Discover our curated collection of trending content
             </p>
           </div>
-          <Button
-            variant="outline"
-            className="group relative overflow-hidden rounded-full px-8 py-6 text-base font-medium transition-all duration-300
-              border-none bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-pink-500/10 hover:from-violet-500/20 hover:via-fuchsia-500/20 hover:to-pink-500/20"
-          >
-            <span className="relative z-10 bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent font-semibold">
-              Explore All
-            </span>
-            <span className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-              →
-            </span>
-          </Button>
+          <Link href="/videos">
+            <Button
+              variant="outline"
+              className="group relative overflow-hidden rounded-full px-8 py-6 text-base font-medium transition-all duration-300
+                border-none bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-pink-500/10 hover:from-violet-500/20 hover:via-fuchsia-500/20 hover:to-pink-500/20"
+            >
+              <span className="relative z-10 bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent font-semibold">
+                Explore All
+              </span>
+              <span className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                →
+              </span>
+            </Button>
+          </Link>
         </div>
 
         <div className="relative" ref={carouselRef}>

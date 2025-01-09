@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from "next/navigation";
-import { ContentService } from '@/services/content-service';
+import { api } from '@/services/api';
 import { User, ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
@@ -19,16 +19,34 @@ interface Props {
     }>;
 }
 
-async function getArticle(category: string, slug: string): Promise<News | null> {
-    return ContentService.getArticleBySlug(category, slug);
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const resolvedParams = await params;
+    const article = await api.getNewsById(resolvedParams.category, resolvedParams.slug);
+
+    if (!article) {
+        return {
+            title: 'Article Not Found | MSP News',
+            description: 'The requested article could not be found.'
+        };
+    }
+
+    return {
+        title: `${article.title} | MSP News`,
+        description: article.excerpt,
+        openGraph: {
+            title: article.title,
+            description: article.excerpt,
+            type: 'article',
+            images: [{ url: article.image }],
+            authors: [article.author],
+            publishedTime: article.created_at,
+        }
+    };
 }
 
 export default async function ArticlePage({ params }: Props) {
     const resolvedParams = await params;
-    const article = await getArticle(
-        resolvedParams.category.toLowerCase(),
-        resolvedParams.slug
-    );
+    const article = await api.getNewsById(resolvedParams.category, resolvedParams.slug);
 
     if (!article) {
         notFound();

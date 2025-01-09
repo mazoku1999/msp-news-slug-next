@@ -38,18 +38,20 @@ export const NewsSection = () => {
                             Stay informed with our curated selection of impactful stories from around the world
                         </p>
                     </div>
-                    <Button
-                        variant="outline"
-                        className="group relative overflow-hidden rounded-full px-8 py-6 text-base font-medium transition-all duration-300
+                    <Link href="/articles">
+                        <Button
+                            variant="outline"
+                            className="group relative overflow-hidden rounded-full px-8 py-6 text-base font-medium transition-all duration-300
               border-none bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-pink-500/10 hover:from-violet-500/20 hover:via-fuchsia-500/20 hover:to-pink-500/20"
-                    >
-                        <span className="relative z-10 bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent font-semibold">
-                            View All
-                        </span>
-                        <span className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
-                            →
-                        </span>
-                    </Button>
+                        >
+                            <span className="relative z-10 bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent font-semibold">
+                                View All
+                            </span>
+                            <span className="ml-2 relative z-10 transition-transform duration-300 group-hover:translate-x-1">
+                                →
+                            </span>
+                        </Button>
+                    </Link>
                 </div>
 
                 <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 2xl:columns-5 gap-4 space-y-4 px-4 sm:px-6 lg:px-8">

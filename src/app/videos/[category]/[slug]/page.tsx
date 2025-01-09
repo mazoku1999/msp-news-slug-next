@@ -1,7 +1,6 @@
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { ContentService } from '@/services/content-service';
-import { Video } from '@/types';
+import { api } from '@/services/api';
 
 interface Props {
     params: Promise<{
@@ -10,23 +9,34 @@ interface Props {
     }>;
 }
 
-async function getVideo(category: string, slug: string): Promise<Video | null> {
-    try {
-        const video = await ContentService.getVideoBySlug(category, slug);
-        console.log('Video found:', video);
-        return video;
-    } catch (error) {
-        console.error('Error fetching video:', error);
-        return null;
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+    const resolvedParams = await params;
+    const video = await api.getVideoById(resolvedParams.category, resolvedParams.slug);
+
+    if (!video) {
+        return {
+            title: 'Video Not Found | MSP News',
+            description: 'The requested video could not be found.'
+        };
     }
+
+    return {
+        title: `${video.title} | MSP News`,
+        description: video.description,
+        openGraph: {
+            title: video.title,
+            description: video.description,
+            type: 'video.other',
+            images: [{ url: video.thumbnail }],
+            videos: [{ url: video.url }]
+        }
+    };
 }
 
 export default async function VideoPage({ params }: Props) {
+
     const resolvedParams = await params;
-    const video = await getVideo(
-        resolvedParams.category.toLowerCase(),
-        resolvedParams.slug
-    );
+    const video = await api.getVideoById(resolvedParams.category, resolvedParams.slug);
 
     if (!video) {
         notFound();
