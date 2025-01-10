@@ -1,13 +1,20 @@
 import { NextResponse } from 'next/server'
 import { videos } from '@/data/videos'
+import { cache } from 'react'
+
+// Implementar cache para la función de fetching
+const getVideosByCategory = cache(async (category: string) => {
+    return videos.filter(item => item.category === category);
+});
 
 export async function GET(
     request: Request,
-    { params }: { params: { category: string } }
+    { params }: { params: Promise<{ category: string }> }
 ) {
-    const { category } = params
+    const resolvedParams = await params;
+    const { category } = resolvedParams;
 
-    const categoryVideos = videos.filter(item => item.category === category)
+    const categoryVideos = await getVideosByCategory(category);
 
     if (!categoryVideos.length) {
         return NextResponse.json(

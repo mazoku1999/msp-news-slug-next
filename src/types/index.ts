@@ -1,19 +1,3 @@
-export interface Article {
-    id: number;
-    title: string;
-    excerpt: string;
-    content: string;
-    image: string;
-    author: string;
-    category: string;
-    created_at: string;
-    video?: {
-        id: string;
-        title: string;
-        description?: string;
-    };
-}
-
 export interface Video {
     id: number;
     title: string;
@@ -28,6 +12,12 @@ export interface Video {
     duration?: string;
 }
 
+export interface VideoInfo {
+    id: string;
+    title: string;
+    description?: string;
+}
+
 export interface News {
     id: number;
     title: string;
@@ -38,12 +28,5 @@ export interface News {
     created_at: string;
     category: string;
     slug: string;
-    readTime?: string;
-    tags?: string[];
-    video?: {
-        id: string;
-        title: string;
-        description?: string;
-        slug: string;
-    };
+    video?: VideoInfo;
 } 

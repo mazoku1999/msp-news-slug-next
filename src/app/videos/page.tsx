@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { VideosGrid } from "@/components/VideosGrid"
 import { api } from '@/services/api'
+import { Suspense } from 'react'
+import { cache } from 'react'
 
 export const metadata: Metadata = {
     title: 'Featured Videos | MSP News',
@@ -12,8 +14,14 @@ export const metadata: Metadata = {
     }
 }
 
+// Implementar cache para la función de fetching
+export const getAllVideos = cache(async () => {
+    const videos = await api.getVideos()
+    return videos
+})
+
 export default async function VideosPage() {
-    const videos = await api.getVideos();
+    const videos = await getAllVideos()
 
     return (
         <div className="min-h-screen bg-background">
@@ -34,7 +42,11 @@ export default async function VideosPage() {
                     </p>
                 </div>
 
-                <VideosGrid videos={videos} />
+                <Suspense fallback={<div className="w-full py-12 flex items-center justify-center">
+                    <div className="animate-pulse text-lg text-muted-foreground">Loading videos...</div>
+                </div>}>
+                    <VideosGrid videos={videos} />
+                </Suspense>
             </div>
         </div>
     )

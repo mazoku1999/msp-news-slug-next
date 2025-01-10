@@ -5,7 +5,7 @@ import Link from "next/link"
 import { motion } from "framer-motion"
 import { ArrowRight, User, Calendar } from "lucide-react"
 import { Button } from "./ui/button"
-import { news } from "@/data/news"
+import { News } from '@/types'
 
 const SIZES = [
     'aspect-[2/3]',    // Alto
@@ -16,10 +16,13 @@ const SIZES = [
     'aspect-[3/2]'     // Paisaje
 ]
 
-// Función determinista para obtener el tamaño basado en el índice
 const getSize = (index: number) => SIZES[index % SIZES.length]
 
-export const NewsSection = () => {
+interface NewsSectionProps {
+    news: News[]
+}
+
+export const NewsSection = ({ news }: NewsSectionProps) => {
     return (
         <section className="w-full py-4">
             <div className="max-w-[2000px] mx-auto">
@@ -42,7 +45,7 @@ export const NewsSection = () => {
                         <Button
                             variant="outline"
                             className="group relative overflow-hidden rounded-full px-8 py-6 text-base font-medium transition-all duration-300
-              border-none bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-pink-500/10 hover:from-violet-500/20 hover:via-fuchsia-500/20 hover:to-pink-500/20"
+                            border-none bg-gradient-to-r from-violet-500/10 via-fuchsia-500/10 to-pink-500/10 hover:from-violet-500/20 hover:via-fuchsia-500/20 hover:to-pink-500/20"
                         >
                             <span className="relative z-10 bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent font-semibold">
                                 View All

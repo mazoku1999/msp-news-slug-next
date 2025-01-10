@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { ArticlesGrid } from "@/components/ArticlesGrid"
 import { api } from '@/services/api'
+import { Suspense } from 'react'
+import { cache } from 'react'
 
 export const metadata: Metadata = {
     title: 'Latest Articles | MSP News',
@@ -12,8 +14,14 @@ export const metadata: Metadata = {
     }
 }
 
-export default async function ArticlesPage() {
+// Implementar cache para la función de fetching
+export const getAllArticles = cache(async () => {
     const news = await api.getNews()
+    return news
+})
+
+export default async function ArticlesPage() {
+    const news = await getAllArticles()
 
     return (
         <div className="min-h-screen bg-background">
@@ -34,7 +42,11 @@ export default async function ArticlesPage() {
                     </p>
                 </div>
 
-                <ArticlesGrid articles={news} />
+                <Suspense fallback={<div className="w-full py-12 flex items-center justify-center">
+                    <div className="animate-pulse text-lg text-muted-foreground">Loading articles...</div>
+                </div>}>
+                    <ArticlesGrid articles={news} />
+                </Suspense>
             </div>
         </div>
     )

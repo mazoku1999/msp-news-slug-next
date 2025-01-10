@@ -12,10 +12,13 @@ import { useRef } from "react"
 import { Button } from "./ui/button"
 import { motion } from "framer-motion"
 import Link from "next/link"
-import { videos } from "@/data/videos"
 import type { Video } from "@/types"
 
-export const LatestVideos = () => {
+interface LatestVideosProps {
+  videos: Video[]
+}
+
+export const LatestVideos = ({ videos }: LatestVideosProps) => {
   const carouselRef = useRef<HTMLDivElement>(null)
 
   return (

@@ -1,6 +1,6 @@
 import { News, Video } from '@/types'
 
-const DEFAULT_CACHE_TIME = 3600
+const DEFAULT_CACHE_TIME = process.env.NODE_ENV === 'production' ? 3600 : 0
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'
 
 export const api = {
